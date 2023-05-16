@@ -156,11 +156,15 @@
     color: #fff;
     padding: 15px 20px;
     display: inline-block;
-    margin-top: 20px;
-    border: 1px solid #fff;
+    margin: 15px;
+    border: 1px solid;
     border-radius: 4px;
     text-decoration: none;
 }
+
+.contactButton i {
+    font-size: 30px; /* Adjust the font size as desired */
+  }
 
 .contactButton:hover {
     text-decoration: none;
@@ -168,20 +172,36 @@
     background-color: #fff;
 }
 
-.filter a {
+.contactButton .text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+}
+
+.contactButton:hover .text {
+    opacity: 1;
+    visibility: visible;
+  }
+
+.contact-group {
+    margin: 30px;
+}
+
+
+
+.filters-button-group button {
     color: #bdc3c7;
     border: 1px solid #bdc3c7;
     padding: 10px 18px;
-    display: block;
+    display: inline-block;
     text-decoration: none;
 }
 
-.filter li {
-    display: inline-block;
-    padding: 5px;
-}
-
-.filter .current {
+.filters-button-group .is-checked {
     background-color: #e74c3c;
     border-color: #e74c3c;
     color: #fff;
@@ -190,6 +210,7 @@
 .filter {
     text-align: center;
     width: 100%;
+    margin-bottom: 50px;
 }
 
 .section .heading {
@@ -345,4 +366,14 @@
     width: 100%;
     height: 100%;
     background: url(../images/loader.gif) center center no-repeat;
+}
+
+.copyrightSection {
+    background-color: #000;
+    color: #bdc3c7;
+    padding: 30px 5px;
+}
+
+.copyrightSection p {
+    margin: 0;
 }

@@ -1,7 +1,16 @@
-$(window).on("load", function(){
-    $(".loader .inner").fadeOut(500, function(){
+$(window).on("load", function () {
+    $(".loader .inner").fadeOut(500, function () {
         $(".loader").fadeOut(750);
     });
+
+    // $(".items").isotope({
+    //     filter: '*',
+    //     animationOptions: {
+    //         duration: 1500,
+    //         easing: 'linear',   
+    //         queue: false
+    //     }
+    // });
 })
 
 $(document).ready(function () {
@@ -45,8 +54,8 @@ $(document).ready(function () {
     var countUpFinished = false;
 
     // when window is scrolled, this code will be executed
-    $(window).scroll(function(){
-        if (window.pageYOffset > skillsTopOffset - $(window).height() + 200){
+    $(window).scroll(function () {
+        if (window.pageYOffset > skillsTopOffset - $(window).height() + 200) {
             $('.chart').easyPieChart({
                 easing: 'easeInOut',
                 barColor: '#fff',
@@ -54,14 +63,14 @@ $(document).ready(function () {
                 scaleColor: false,
                 lineWidth: 4,
                 size: 152,
-                onStep: function(from, to, percent){
+                onStep: function (from, to, percent) {
                     $(this.el).find('.percent').text(Math.round(percent));
                 }
             });
         }
 
-        if (!countUpFinished && window.pageYOffset > statsTopOffset - $(window).height() + 200){
-            $(".counter").each(function(){
+        if (!countUpFinished && window.pageYOffset > statsTopOffset - $(window).height() + 200) {
+            $(".counter").each(function () {
                 var element = $(this);
                 var endVal = parseInt(element.text());
                 element.countup(endVal);
@@ -77,32 +86,53 @@ $(document).ready(function () {
 
     // isotope
 
-    $(".items").isotope({
-        filter: '*',
+    // $("#filters a").click(function(){
+    //     $("#filters .current").removeClass("current");
+    //     $(this).addClass("current");
+
+    //     var selector = $(this).attr("data-filter");
+
+    //     $(".items").isotope({
+    //         filter: selector,
+    //         animationOptions: {
+    //             duration: 1500,
+    //             easing: 'linear',
+    //             queue: false
+    //         }
+    //     });
+    //     return false; //override the default outcome of clicking
+    // })
+
+
+    // isotope
+
+    // init Isotope
+    var $grid = $('.items').isotope({
+        itemSelector: '.element-item',
+        layoutMode: 'fitRows',
         animationOptions: {
             duration: 1500,
-            easing: 'linear',   
+            easing: 'linear',
             queue: false
         }
     });
 
-    $("#filters a").click(function(){
-        $("#filters .current").removeClass("current");
-        $(this).addClass("current");
+    // bind filter button click
+    $('.filters-button-group').on('click', 'button', function () {
+        var filterValue = $(this).attr('data-filter');
+        $grid.isotope({ filter: filterValue });
+    });
 
-        var selector = $(this).attr("data-filter");
-        
-        $(".items").isotope({
-            filter: selector,
-            animationOptions: {
-                duration: 1500,
-                easing: 'linear',
-                queue: false
-            }
+    // change is-checked class on buttons
+    $('.button-group').each(function (i, buttonGroup) {
+        var $buttonGroup = $(buttonGroup);
+        $buttonGroup.on('click', 'button', function () {
+            $buttonGroup.find('.is-checked').removeClass('is-checked');
+            $(this).addClass('is-checked');
         });
+    });
 
-        return false; //override the default outcome of clicking
-    })
+
 
     // make the navbar stick to the top
     const nav = $("#navigation");
@@ -110,7 +140,7 @@ $(document).ready(function () {
 
     $(window).on("scroll", stickyNavigation);
 
-    function stickyNavigation(){
+    function stickyNavigation() {
         // when we scroll the window, we will call this function
         var body = $("body");
         if ($(window).scrollTop() >= navTop) {
